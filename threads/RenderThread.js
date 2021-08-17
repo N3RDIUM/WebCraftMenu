@@ -46,8 +46,8 @@ function animate() {
   camera.rotation.y -=
     0.001 +
     simplex.noise2D(
-      simplex.noise2D(frameCount_ / 60, _mouseX/150),
-      simplex.noise2D(0, frameCount_ / _mouseY/150)
+      simplex.noise2D(frameCount_ / 60, _mouseX/1500),
+      simplex.noise2D(_mouseY/1500, frameCount_ / 60)
     ) *
       0.0012;
   camera.rotation.x = simplex.noise2D(frameCount_ / 60, _mouseX/150) * 0.02;

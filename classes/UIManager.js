@@ -1,3 +1,15 @@
+let allRandomSubtitles = [
+  "Shakey-Shakey!",
+  "Work in progress",
+  "I'm dizzy!",
+  ":O",
+  "I'm harder than I look",
+  "Well, I might look easy",
+  "I am a very rare subtitle!"
+];
+
+let choice = Math.floor(Math.random() * allRandomSubtitles.length);
+
 class UIManager {
   constructor() {
     this.currentScreen = "home";
@@ -72,19 +84,41 @@ class UIManager {
         "WebCraft",
         windowWidth / 2 -
           textWidth("WebCraf|") / 2 +
-          Math.round(noise(frameCount / 10, _mouseX/100) * 10),
-        (windowHeight / 2) * 0.6 + Math.round(noise(_mouseY/100, frameCount / 10) * 10)
+          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
+        (windowHeight / 2) * 0.6 +
+          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
       );
+      push();
+      translate(
+        windowWidth / 2.799 +
+          textWidth(allRandomSubtitles[0]) / 2 +
+          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
+        (windowHeight / 2) * 0.8 +
+          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+      );
+      rotate(
+        -0.785398 -
+          Math.round(
+            noise(frameCount_ / 10, _mouseX / 100) ,
+            noise(_mouseX / 15, _mouseY / 15)
+          ) /
+            100
+      );
+      textSize(windowHeight / 32 + sin(frameCount_ / 10) * 6);
+      fill("#d1b900");
+      text(allRandomSubtitles[choice], 0, 0);
+      pop();
+
       textSize(windowHeight / 32);
       fill("#ffffff");
       text(
         "Made by our contributors on github.",
         windowWidth -
           textWidth("Made by our contributors on github.__") +
-          Math.round(noise(frameCount / 23, _mouseY/150) * 20),
+          Math.round(noise(frameCount / 23, _mouseY / 150) * 20),
         windowHeight -
           textWidth("Made by our contributors on github.__") / 15 +
-          Math.round(noise(_mouseX/150, frameCount / 23) * 20)
+          Math.round(noise(_mouseX / 150, frameCount / 23) * 20)
       );
     }
   }
