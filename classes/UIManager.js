@@ -72,8 +72,8 @@ class UIManager {
         "WebCraft",
         windowWidth / 2 -
           textWidth("WebCraf|") / 2 +
-          Math.round(noise(frameCount / 10, 0) * 10),
-        (windowHeight / 2) * 0.6 + Math.round(noise(0, frameCount / 10) * 10)
+          Math.round(noise(frameCount / 10, _mouseX/100) * 10),
+        (windowHeight / 2) * 0.6 + Math.round(noise(_mouseY/100, frameCount / 10) * 10)
       );
       textSize(windowHeight / 32);
       fill("#ffffff");
@@ -81,10 +81,10 @@ class UIManager {
         "Made by our contributors on github.",
         windowWidth -
           textWidth("Made by our contributors on github.__") +
-          Math.round(noise(frameCount / 23, 0) * 20),
+          Math.round(noise(frameCount / 23, _mouseY/150) * 20),
         windowHeight -
           textWidth("Made by our contributors on github.__") / 15 +
-          Math.round(noise(0, frameCount / 23) * 20)
+          Math.round(noise(_mouseX/150, frameCount / 23) * 20)
       );
     }
   }
