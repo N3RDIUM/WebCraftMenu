@@ -12,7 +12,7 @@ function setup() {
   canvas.style("z-index", "2");
   UI_ = new UIManager();
   defaultFont = loadFont("./assets/RetroFont.otf");
-  buttonTexture = loadImage("../assets/textures/gui/options_background.png");
+  buttonTexture = loadImage("./assets/textures/gui/options_background.png");
   UI_.getElements();
   // log the UITexturesList variables
   //console.log(UITexturesList);
