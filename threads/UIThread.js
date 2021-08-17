@@ -2,7 +2,7 @@
 let UI_STARTLOGGEDONCE = false;
 
 console.log("[Threading] UI Thread Started");
-let UI_, initialised, defaultFont, defaultUIImages, buttonTexture;
+let UI_, initialised, defaultFont, defaultUIImages, buttonTexture, _mouseX, _mouseY;
 
 // setup function, called while the page loads
 function setup() {
@@ -43,5 +43,7 @@ function draw() {
   }
   textFont(defaultFont);
   UI_.render();
+  _mouseX = pmouseX;
+  _mouseY = pmouseY;
   //image(buttonTexture, 0, 0);
 }
