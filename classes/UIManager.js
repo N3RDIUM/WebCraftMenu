@@ -5,7 +5,17 @@ let allRandomSubtitles = [
   ":O",
   "I'm harder than I look",
   "Well, I might look easy",
-  "I am a very rare subtitle!"
+  "I am a very rare subtitle!",
+  "I am a very big piece of code.",
+  "A very rare subtitle indeed.",
+  "Fork us on github!",
+  "Press play",
+  "Star us on github!",
+  "Very fast",
+  "I can't be speedrunned (yet)",
+  "No cheating",
+  "Math.floor(Math.random() * \nallRandomSubtitles.length);",
+  "let choice = choice (say whaaaaat)"
 ];
 
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
