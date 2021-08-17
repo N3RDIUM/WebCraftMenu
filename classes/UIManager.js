@@ -19,7 +19,7 @@ let allRandomSubtitles = [
   "Just hope null doesn't\n enter the world!\n(P.S. He won't)",
   "Earthquake!",
   "qwertyuiop\nasdfghjkl\nzxcvbnm!",
-  "Shake your mouse to shake the world!"
+  "Shake your mouse to shake the world!",
 ];
 
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
@@ -47,6 +47,8 @@ class UIManager {
         console.log(
           "[UIManager] {Screen:" + this.currentScreen + "} Play button pressed!"
         );
+        this.currentScreen = "play";
+        this.getElements();
       };
       startButton.onHover = () => {
         startButton.stroke = "rgba(168, 168, 168,0)";
@@ -75,6 +77,8 @@ class UIManager {
             this.currentScreen +
             "} Settings button pressed!"
         );
+        this.currentScreen = "settings";
+        this.getElements();
       };
       settingsButton.onHover = () => {
         settingsButton.stroke = "rgba(168, 168, 168,0)";
@@ -113,7 +117,7 @@ class UIManager {
       rotate(
         -0.785398 -
           Math.round(
-            noise(frameCount_ / 10, _mouseX / 100) ,
+            noise(frameCount_ / 10, _mouseX / 100),
             noise(_mouseX / 15, _mouseY / 15)
           ) /
             100
