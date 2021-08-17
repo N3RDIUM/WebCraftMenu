@@ -83,7 +83,7 @@ class UIManager {
           textWidth("Made by our contributors on github.__") +
           Math.round(noise(frameCount / 23, 0) * 20),
         windowHeight -
-          textWidth("Made by our contributors on github.__") / 20 +
+          textWidth("Made by our contributors on github.__") / 15 +
           Math.round(noise(0, frameCount / 23) * 20)
       );
     }
