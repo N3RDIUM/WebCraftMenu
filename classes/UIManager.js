@@ -9,7 +9,7 @@ class UIManager {
       canvas.style("backdrop-filter", "blur(4px)");
 
       let startButton = new Clickable();
-      startButton.cornerRadius = 0
+      startButton.cornerRadius = 0;
       startButton.textFont = defaultFont;
       startButton.width = windowWidth / 4;
       startButton.height = 25;
@@ -70,8 +70,21 @@ class UIManager {
       fill("#000000");
       text(
         "WebCraft",
-        (windowWidth / 2 - textWidth("WebCraf|") / 2)+Math.round(noise(frameCount/10,0)*10),
-        ((windowHeight / 2) * 0.6)+Math.round(noise(0,frameCount/10)*10)
+        windowWidth / 2 -
+          textWidth("WebCraf|") / 2 +
+          Math.round(noise(frameCount / 10, 0) * 10),
+        (windowHeight / 2) * 0.6 + Math.round(noise(0, frameCount / 10) * 10)
+      );
+      textSize(windowHeight / 32);
+      fill("#ffffff");
+      text(
+        "Made by our contributors on github.",
+        windowWidth -
+          textWidth("Made by our contributors on github.__") +
+          Math.round(noise(frameCount / 23, 0) * 20),
+        windowHeight -
+          textWidth("Made by our contributors on github.__") / 20 +
+          Math.round(noise(0, frameCount / 23) * 20)
       );
     }
   }
