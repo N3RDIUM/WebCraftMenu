@@ -15,7 +15,11 @@ let allRandomSubtitles = [
   "I can't be speedrunned (yet)",
   "No cheating",
   "Math.floor(Math.random() * \nallRandomSubtitles.length);",
-  "let choice = choice (say whaaaaat)"
+  "let choice = choice (say whaaaaat)",
+  "Just hope null doesn't\n enter the world!\n(P.S. He won't)",
+  "Earthquake!",
+  "qwertyuiop\nasdfghjkl\nzxcvbnm!",
+  "Shake your mouse to shake the world!"
 ];
 
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
