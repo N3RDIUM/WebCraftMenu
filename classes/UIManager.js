@@ -2,7 +2,6 @@ let allRandomSubtitles = [
   "Shakey-Shakey!",
   "Work in progress",
   "I'm dizzy!",
-  ":O",
   "I'm harder than I look",
   "Well, I might look easy",
   "I am a very rare subtitle!",
@@ -20,6 +19,7 @@ let allRandomSubtitles = [
   "Earthquake!",
   "qwertyuiop\nasdfghjkl\nzxcvbnm!",
   "Shake your mouse to shake the world!",
+  "This text is so small that you will never\nbe able to read it lol just press play, man!",
 ];
 
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
@@ -91,8 +91,7 @@ class UIManager {
         Math.round(((windowHeight / 2) * 2.2) / 2) - settingsButton.height / 2
       );
       this.UIElements.push(settingsButton);
-    }
-    else if(this.currentScreen==='settings'){
+    } else if (this.currentScreen === "settings") {
       let backButton = new Clickable();
       backButton.textFont = defaultFont;
       backButton.textSize = 20;
@@ -104,9 +103,7 @@ class UIManager {
       backButton.stroke = "rgba(0,0,0,0)";
       backButton.onPress = () => {
         console.log(
-          "[UIManager] {Screen:" +
-            this.currentScreen +
-            "} Back button pressed!"
+          "[UIManager] {Screen:" + this.currentScreen + "} Back button pressed!"
         );
         this.currentScreen = "home";
         this.getElements();
@@ -140,7 +137,7 @@ class UIManager {
       push();
       translate(
         windowWidth / 2 +
-          textWidth("WebCraf|")/2 +
+          textWidth("WebCraf|") / 2 +
           Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
         (windowHeight / 2) * 0.68 +
           Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
@@ -153,7 +150,9 @@ class UIManager {
           ) /
             100
       );
-      textSize(windowHeight / 32 + sin(frameCount_ / 10) * 6);
+      textSize(
+        (windowWidth/200)+250 / allRandomSubtitles[choice].length + sin((frameCount_ / 10)+(285/windowWidth)) * 6 + 6
+      );
       fill("#d1b900");
       text(allRandomSubtitles[choice], 0, 0);
       pop();
@@ -164,10 +163,10 @@ class UIManager {
         "Made by our contributors on github.",
         windowWidth -
           textWidth("Made by our contributors on github.__") +
-          Math.round(noise(frameCount / 23, _mouseY / 150) * 20),
+          Math.round(noise(frameCount / 25, _mouseY / 150) * 20),
         windowHeight -
           textWidth("Made by our contributors on github.__") / 15 +
-          Math.round(noise(_mouseX / 150, frameCount / 23) * 20)
+          Math.round(noise(_mouseX / 150, frameCount / 25) * 20)
       );
     }
   }
