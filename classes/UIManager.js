@@ -116,7 +116,7 @@ class UIManager {
       };
       backButton.locate(
         windowWidth / 2 - backButton.width / 2,
-        Math.round(((windowHeight / 2) * 2.6) / 2) - backButton.height / 2
+        Math.round(((windowHeight / 2) * 3.6) / 2) - backButton.height / 2
       );
       this.UIElements.push(backButton);
     }
