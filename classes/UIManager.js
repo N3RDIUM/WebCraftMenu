@@ -151,7 +151,7 @@ class UIManager {
             100
       );
       textSize(
-        (windowWidth/200)+250 / allRandomSubtitles[choice].length + sin((frameCount_ / 10)+(285/windowWidth)) * 6 + 6
+        (windowWidth/200)+(285 / allRandomSubtitles[choice].length)*0.5 + sin((frameCount_ / 10)+(285/windowWidth)) * 6 + 6
       );
       fill("#d1b900");
       text(allRandomSubtitles[choice], 0, 0);
