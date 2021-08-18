@@ -92,6 +92,37 @@ class UIManager {
       );
       this.UIElements.push(settingsButton);
     }
+    else if(this.currentScreen==='settings'){
+      let backButton = new Clickable();
+      backButton.textFont = defaultFont;
+      backButton.textSize = 20;
+      backButton.cornerRadius = 0;
+      backButton.image = buttonTexture;
+      backButton.width = windowWidth / 4;
+      backButton.height = 25;
+      backButton.text = "Back";
+      backButton.stroke = "rgba(0,0,0,0)";
+      backButton.onPress = () => {
+        console.log(
+          "[UIManager] {Screen:" +
+            this.currentScreen +
+            "} Back button pressed!"
+        );
+        this.currentScreen = "home";
+        this.getElements();
+      };
+      backButton.onHover = () => {
+        backButton.stroke = "rgba(168, 168, 168,0)";
+      };
+      backButton.onOutside = () => {
+        backButton.stroke = "rgba(0,0,0,0)";
+      };
+      backButton.locate(
+        windowWidth / 2 - backButton.width / 2,
+        Math.round(((windowHeight / 2) * 2.6) / 2) - backButton.height / 2
+      );
+      this.UIElements.push(backButton);
+    }
   }
   render() {
     this.UIElements.forEach((element) => element.draw());
@@ -108,10 +139,10 @@ class UIManager {
       );
       push();
       translate(
-        windowWidth / 2.799 +
-          textWidth(allRandomSubtitles[0]) / 2 +
+        windowWidth / 2 +
+          textWidth("WebCraf|")/2 +
           Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
-        (windowHeight / 2) * 0.8 +
+        (windowHeight / 2) * 0.68 +
           Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
       );
       rotate(
