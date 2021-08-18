@@ -22,6 +22,9 @@ let allRandomSubtitles = [
   "This text is so small that you will never\nbe able to read it lol just press play, man!",
 ];
 
+let Difficulty = 2;
+let Difficulties = ["peaceful", "easy", "normal", "hard", "harder", "extreme"];
+
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
 
 class UIManager {
@@ -119,6 +122,38 @@ class UIManager {
         Math.round(((windowHeight / 2) * 3.6) / 2) - backButton.height / 2
       );
       this.UIElements.push(backButton);
+
+      let difButton = new Clickable();
+      difButton.textFont = defaultFont;
+      difButton.textSize = 20;
+      difButton.cornerRadius = 0;
+      difButton.image = buttonTexture;
+      difButton.width = windowWidth / 4;
+      difButton.height = 25;
+      difButton.text = "Difficulty: " + Difficulties[Difficulty];
+      difButton.stroke = "rgba(0,0,0,0)";
+      difButton.onPress = () => {
+        console.log(
+          "[UIManager] {Screen:" + this.currentScreen + "} Back button pressed!"
+        );
+        if (Difficulty != Difficulties.length - 1) {
+          Difficulty += 1;
+        } else {
+          Difficulty = 0;
+        }
+        difButton.text = "Difficulty: " + Difficulties[Difficulty];
+      };
+      difButton.onHover = () => {
+        difButton.stroke = "rgba(168, 168, 168,0)";
+      };
+      difButton.onOutside = () => {
+        difButton.stroke = "rgba(0,0,0,0)";
+      };
+      difButton.locate(
+        windowWidth / 2 - difButton.width -10,
+        Math.round(((windowHeight / 2) * 0.88) / 2) - difButton.height / 2
+      );
+      this.UIElements.push(difButton);
     }
   }
   render() {
@@ -151,7 +186,10 @@ class UIManager {
             100
       );
       textSize(
-        (windowWidth/200)+(285 / allRandomSubtitles[choice].length)*0.5 + sin((frameCount_ / 10)+(285/windowWidth)) * 6 + 6
+        windowWidth / 200 +
+          (285 / allRandomSubtitles[choice].length) * 0.5 +
+          sin(frameCount_ / 10 + 285 / windowWidth) * 6 +
+          6
       );
       fill("#d1b900");
       text(allRandomSubtitles[choice], 0, 0);
