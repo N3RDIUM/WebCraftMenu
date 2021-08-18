@@ -26,28 +26,7 @@ let Difficulty = 2;
 let Difficulties = ["peaceful", "easy", "normal", "hard", "harder", "extreme"];
 
 let Fov = 1;
-let FOVS = ["thin", "narrow", "normal", "wide", "grand"];
-
-if(Fov === 0) {
-  camera.fov = 45
-  camera.updateProjectionMatrix();
-}
-if(Fov === 1) {
-  camera.fov = 75
-  camera.updateProjectionMatrix();
-}
-if(Fov === 2) {
-  camera.fov = 90
-  camera.updateProjectionMatrix();
-}
-if(Fov === 3) {
-  camera.fov = 100
-  camera.updateProjectionMatrix();
-}
-if(Fov === 4) {
-  camera.fov = 120
-  camera.updateProjectionMatrix();
-}
+let FOVS = ["narrow", "normal", "wide", "very wide", "grand"];
 
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
 
@@ -55,6 +34,26 @@ class UIManager {
   constructor() {
     this.currentScreen = "home";
     this.UIElements = [];
+    if (Fov === 0) {
+      camera.fov = 45;
+      camera.updateProjectionMatrix();
+    }
+    if (Fov === 1) {
+      camera.fov = 75;
+      camera.updateProjectionMatrix();
+    }
+    if (Fov === 2) {
+      camera.fov = 90;
+      camera.updateProjectionMatrix();
+    }
+    if (Fov === 3) {
+      camera.fov = 105;
+      camera.updateProjectionMatrix();
+    }
+    if (Fov === 4) {
+      camera.fov = 120;
+      camera.updateProjectionMatrix();
+    }
   }
   getElements() {
     this.UIElements = [];
@@ -200,24 +199,24 @@ class UIManager {
           Fov = 0;
         }
         fovButton.text = "FoV: " + FOVS[Fov];
-        if(Fov === 0) {
-          camera.fov = 45
+        if (Fov === 0) {
+          camera.fov = 45;
           camera.updateProjectionMatrix();
         }
-        if(Fov === 1) {
-          camera.fov = 75
+        if (Fov === 1) {
+          camera.fov = 75;
           camera.updateProjectionMatrix();
         }
-        if(Fov === 2) {
-          camera.fov = 90
+        if (Fov === 2) {
+          camera.fov = 90;
           camera.updateProjectionMatrix();
         }
-        if(Fov === 3) {
-          camera.fov = 100
+        if (Fov === 3) {
+          camera.fov = 100;
           camera.updateProjectionMatrix();
         }
-        if(Fov === 4) {
-          camera.fov = 120
+        if (Fov === 4) {
+          camera.fov = 120;
           camera.updateProjectionMatrix();
         }
       };
