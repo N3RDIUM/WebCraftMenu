@@ -25,6 +25,9 @@ let allRandomSubtitles = [
 let Difficulty = 2;
 let Difficulties = ["peaceful", "easy", "normal", "hard", "harder", "extreme"];
 
+let Fov = 2;
+let FOVS = ["thin", "narrow", "normal", "wide", "grand"];
+
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
 
 class UIManager {
@@ -134,7 +137,9 @@ class UIManager {
       difButton.stroke = "rgba(0,0,0,0)";
       difButton.onPress = () => {
         console.log(
-          "[UIManager] {Screen:" + this.currentScreen + "} Back button pressed!"
+          "[UIManager] {Screen:" +
+            this.currentScreen +
+            "} Difficulty button pressed!"
         );
         if (Difficulty != Difficulties.length - 1) {
           Difficulty += 1;
@@ -150,10 +155,42 @@ class UIManager {
         difButton.stroke = "rgba(0,0,0,0)";
       };
       difButton.locate(
-        windowWidth / 2 - difButton.width -10,
+        windowWidth / 2 - difButton.width - 10,
         Math.round(((windowHeight / 2) * 0.88) / 2) - difButton.height / 2
       );
       this.UIElements.push(difButton);
+
+      let fovButton = new Clickable();
+      fovButton.textFont = defaultFont;
+      fovButton.textSize = 20;
+      fovButton.cornerRadius = 0;
+      fovButton.image = buttonTexture;
+      fovButton.width = windowWidth / 4;
+      fovButton.height = 25;
+      fovButton.text = "FoV: " + FOVS[Fov];
+      fovButton.stroke = "rgba(0,0,0,0)";
+      fovButton.onPress = () => {
+        console.log(
+          "[UIManager] {Screen:" + this.currentScreen + "} FoV button pressed!"
+        );
+        if (Fov != FOVS.length - 1) {
+          Fov += 1;
+        } else {
+          Fov = 0;
+        }
+        fovButton.text = "FoV: " + FOVS[Fov];
+      };
+      fovButton.onHover = () => {
+        fovButton.stroke = "rgba(168, 168, 168,0)";
+      };
+      fovButton.onOutside = () => {
+        fovButton.stroke = "rgba(0,0,0,0)";
+      };
+      fovButton.locate(
+        windowWidth / 2 + 10,
+        Math.round(((windowHeight / 2) * 0.88) / 2) - fovButton.height / 2
+      );
+      this.UIElements.push(fovButton);
     }
   }
   render() {
