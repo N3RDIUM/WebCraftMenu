@@ -118,6 +118,7 @@ class UIManager {
       );
       this.UIElements.push(settingsButton);
     } else if (this.currentScreen === "settings") {
+      canvas.style("backdrop-filter", "blur(4px)");
       let backButton = new Clickable();
       backButton.textFont = defaultFont;
       backButton.textSize = 20;
@@ -212,7 +213,7 @@ class UIManager {
           camera.updateProjectionMatrix();
         }
         if (Fov === 3) {
-          camera.fov = 100;
+          camera.fov = 105;
           camera.updateProjectionMatrix();
         }
         if (Fov === 4) {
@@ -231,6 +232,9 @@ class UIManager {
         Math.round(((windowHeight / 2) * 0.88) / 2) - fovButton.height / 2
       );
       this.UIElements.push(fovButton);
+    }
+    else{
+      canvas.style("backdrop-filter", "blur(0px)");
     }
   }
   render() {
