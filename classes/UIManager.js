@@ -73,7 +73,7 @@ class UIManager {
         console.log(
           "[UIManager] {Screen:" + this.currentScreen + "} Play button pressed!"
         );
-        this.currentScreen = "play";
+        this.currentScreen = "play>load";
         this.getElements();
       };
       startButton.onHover = () => {
@@ -232,9 +232,41 @@ class UIManager {
         Math.round(((windowHeight / 2) * 0.88) / 2) - fovButton.height / 2
       );
       this.UIElements.push(fovButton);
-    }
-    else{
+    } else if (this.currentScreen === "play>load") {
       canvas.style("backdrop-filter", "blur(0px)");
+      let backButton = new Clickable();
+      backButton.textFont = defaultFont;
+      backButton.textSize = 20;
+      backButton.cornerRadius = 0;
+      backButton.image = buttonTexture;
+      backButton.width = windowWidth / 4;
+      backButton.height = 25;
+      backButton.text = "Back";
+      backButton.stroke = "rgba(0,0,0,0)";
+      backButton.onPress = () => {
+        console.log(
+          "[UIManager] {Screen:" + this.currentScreen + "} Back button pressed!"
+        );
+        this.currentScreen = "home";
+        this.getElements();
+      };
+      backButton.onHover = () => {
+        backButton.stroke = "rgba(168, 168, 168,0)";
+      };
+      backButton.onOutside = () => {
+        backButton.stroke = "rgba(0,0,0,0)";
+      };
+      backButton.locate(
+        windowWidth / 2 - backButton.width / 2,
+        Math.round(((windowHeight / 2) * 3.6) / 2) - backButton.height / 2
+      );
+      this.UIElements.push(backButton);
+    } else if (this.currentScreen === "play>game") {
+      canvas.style("backdrop-filter", "blur(0px)");
+    } else {
+      console.error(
+        "[UIManager] {Screen:" + this.currentScreen + "} Unknown screen!"
+      );
     }
   }
   render() {
@@ -287,6 +319,42 @@ class UIManager {
           textWidth("Made by our contributors on github.__") / 15 +
           Math.round(noise(_mouseX / 150, frameCount / 25) * 20)
       );
+    } else if (this.currentScreen === "play>load") {
+      textSize(windowHeight / 8);
+      fill("#000000");
+      text(
+        "WebCraft",
+        windowWidth / 2 -
+          textWidth("WebCraf|") / 2 +
+          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
+        (windowHeight / 2) * 0.6 +
+          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+      );
+      push();
+      translate(
+        windowWidth / 2 +
+          textWidth("Loading...") / 2 +
+          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
+        (windowHeight / 2) * 0.68 +
+          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+      );
+      rotate(
+        -0.785398 -
+          Math.round(
+            noise(frameCount_ / 10, _mouseX / 100),
+            noise(_mouseX / 15, _mouseY / 15)
+          ) /
+            100
+      );
+      textSize(
+        windowWidth / 200 +
+          (285 / "Loading...".length) * 0.5 +
+          sin(frameCount_ / 10 + 285 / windowWidth) * 6 +
+          6
+      );
+      fill("#d1b900");
+      text("Loading...", 0, 0);
+      pop();
     }
   }
   setScreen(screen) {
