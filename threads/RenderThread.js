@@ -42,7 +42,7 @@ const texture = loader.load([
 ]);
 scene.background = texture;
 
-const chunkworker = new Worker("../classes/Chunk", { type: "module" });
+const chunkworker = new Worker("../classes/Chunk.js", { type: "module" });
 
 chunkworker.postMessage({ simplex: simplex });
 
