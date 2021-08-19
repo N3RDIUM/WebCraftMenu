@@ -1,1 +1,7 @@
-// Will be added soon.
+class Block{
+    constructor(x,y,z){
+        
+    }
+}
+
+

@@ -1,7 +1,6 @@
 class Player {
   constructor() {
     this.player = new THREE.PointerLockControls(camera, document.body);
-    scene.add(this.player.getObject());
     //add event listener to your document.body
     document.body.addEventListener("click", () => this.lock(), false);
     this.moveForward = false;
@@ -65,6 +64,7 @@ class Player {
     }
   }
   lock() {
+    scene.add(this.player.getObject());
     this.player.lock();
   }
 }

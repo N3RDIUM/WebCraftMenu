@@ -1,3 +1,5 @@
+import renderthread from "../threads/RenderThread.js";
+
 let allRandomSubtitles = [
   "Shakey-Shakey!",
   "Work in progress",
@@ -30,30 +32,47 @@ let FOVS = ["narrow", "normal", "wide", "very wide", "grand"];
 
 let choice = Math.floor(Math.random() * allRandomSubtitles.length);
 
-class UIManager {
+let _mouseX = 0;
+let _mouseY = 0;
+let _frameCount = 0;
+
+document.addEventListener("mousemove", function(event) {
+  _mouseX = event.clientX;
+  _mouseY = event.clientY;
+})
+
+export default class UIManager {
   constructor() {
     this.currentScreen = "home";
     this.UIElements = [];
     if (Fov === 0) {
-      camera.fov = 45;
-      camera.updateProjectionMatrix();
+      renderthread.camera.fov = 45;
+      renderthread.camera.updateProjectionMatrix();
     }
     if (Fov === 1) {
-      camera.fov = 75;
-      camera.updateProjectionMatrix();
+      renderthread.camera.fov = 75;
+      renderthread.camera.updateProjectionMatrix();
     }
     if (Fov === 2) {
-      camera.fov = 90;
-      camera.updateProjectionMatrix();
+      renderthread.camera.fov = 90;
+      renderthread.camera.updateProjectionMatrix();
     }
     if (Fov === 3) {
-      camera.fov = 105;
-      camera.updateProjectionMatrix();
+      renderthread.camera.fov = 105;
+      renderthread.camera.updateProjectionMatrix();
     }
     if (Fov === 4) {
-      camera.fov = 120;
-      camera.updateProjectionMatrix();
+      renderthread.camera.fov = 120;
+      renderthread.camera.updateProjectionMatrix();
     }
+  }
+  windowResized() {
+    //console.log([renderthread._mouseX, renderthread._mouseY]);
+    renderthread.renderer.setSize(window.innerWidth, window.innerHeight);
+    renderthread.renderer.setPixelRatio(window.devicePixelRatio);
+    renderthread.renderer.setSize(window.innerWidth, window.innerHeight);
+    renderthread.camera.aspect = window.innerWidth / window.innerHeight;
+    renderthread.camera.updateProjectionMatrix();
   }
   getElements() {
     this.UIElements = [];
@@ -83,8 +102,8 @@ class UIManager {
         startButton.stroke = "rgba(0,0,0,0)";
       };
       startButton.locate(
-        windowWidth / 2 - startButton.width / 2,
-        windowHeight / 2 - startButton.height / 2
+        renderthread.window.innerWidth / 2 - startButton.width / 2,
+        renderthread.window.innerHeight / 2 - startButton.height / 2
       );
       this.UIElements.push(startButton);
 
@@ -93,7 +112,7 @@ class UIManager {
       settingsButton.textSize = 20;
       settingsButton.cornerRadius = 0;
       settingsButton.image = buttonTexture;
-      settingsButton.width = windowWidth / 4;
+      settingsButton.width = renderthread.window.innerWidth / 4;
       settingsButton.height = 25;
       settingsButton.text = "Settings";
       settingsButton.stroke = "rgba(0,0,0,0)";
@@ -113,8 +132,9 @@ class UIManager {
         settingsButton.stroke = "rgba(0,0,0,0)";
       };
       settingsButton.locate(
-        windowWidth / 2 - settingsButton.width / 2,
-        Math.round(((windowHeight / 2) * 2.2) / 2) - settingsButton.height / 2
+        renderthread.window.innerWidth / 2 - settingsButton.width / 2,
+        Math.round(((renderthread.window.innerHeight / 2) * 2.2) / 2) -
+          settingsButton.height / 2
       );
       this.UIElements.push(settingsButton);
     } else if (this.currentScreen === "settings") {
@@ -124,7 +144,7 @@ class UIManager {
       backButton.textSize = 20;
       backButton.cornerRadius = 0;
       backButton.image = buttonTexture;
-      backButton.width = windowWidth / 4;
+      backButton.width = renderthread.window.innerWidth / 4;
       backButton.height = 25;
       backButton.text = "Back";
       backButton.stroke = "rgba(0,0,0,0)";
@@ -142,8 +162,9 @@ class UIManager {
         backButton.stroke = "rgba(0,0,0,0)";
       };
       backButton.locate(
-        windowWidth / 2 - backButton.width / 2,
-        Math.round(((windowHeight / 2) * 3.6) / 2) - backButton.height / 2
+        renderthread.window.innerWidth / 2 - backButton.width / 2,
+        Math.round(((renderthread.window.innerHeight / 2) * 3.6) / 2) -
+          backButton.height / 2
       );
       this.UIElements.push(backButton);
 
@@ -152,7 +173,7 @@ class UIManager {
       difButton.textSize = 20;
       difButton.cornerRadius = 0;
       difButton.image = buttonTexture;
-      difButton.width = windowWidth / 4;
+      difButton.width = renderthread.window.innerWidth / 4;
       difButton.height = 25;
       difButton.text = "Difficulty: " + Difficulties[Difficulty];
       difButton.stroke = "rgba(0,0,0,0)";
@@ -176,8 +197,9 @@ class UIManager {
         difButton.stroke = "rgba(0,0,0,0)";
       };
       difButton.locate(
-        windowWidth / 2 - difButton.width - 10,
-        Math.round(((windowHeight / 2) * 0.88) / 2) - difButton.height / 2
+        renderthread.window.innerWidth / 2 - difButton.width - 10,
+        Math.round(((renderthread.window.innerHeight / 2) * 0.88) / 2) -
+          difButton.height / 2
       );
       this.UIElements.push(difButton);
 
@@ -186,7 +208,7 @@ class UIManager {
       fovButton.textSize = 20;
       fovButton.cornerRadius = 0;
       fovButton.image = buttonTexture;
-      fovButton.width = windowWidth / 4;
+      fovButton.width = renderthread.window.innerWidth / 4;
       fovButton.height = 25;
       fovButton.text = "FoV: " + FOVS[Fov];
       fovButton.stroke = "rgba(0,0,0,0)";
@@ -201,24 +223,24 @@ class UIManager {
         }
         fovButton.text = "FoV: " + FOVS[Fov];
         if (Fov === 0) {
-          camera.fov = 45;
-          camera.updateProjectionMatrix();
+          renderthread.camera.fov = 45;
+          renderthread.camera.updateProjectionMatrix();
         }
         if (Fov === 1) {
-          camera.fov = 75;
-          camera.updateProjectionMatrix();
+          renderthread.camera.fov = 75;
+          renderthread.camera.updateProjectionMatrix();
         }
         if (Fov === 2) {
-          camera.fov = 90;
-          camera.updateProjectionMatrix();
+          renderthread.camera.fov = 90;
+          renderthread.camera.updateProjectionMatrix();
         }
         if (Fov === 3) {
-          camera.fov = 105;
-          camera.updateProjectionMatrix();
+          renderthread.camera.fov = 105;
+          renderthread.camera.updateProjectionMatrix();
         }
         if (Fov === 4) {
-          camera.fov = 120;
-          camera.updateProjectionMatrix();
+          renderthread.camera.fov = 120;
+          renderthread.camera.updateProjectionMatrix();
         }
       };
       fovButton.onHover = () => {
@@ -228,8 +250,9 @@ class UIManager {
         fovButton.stroke = "rgba(0,0,0,0)";
       };
       fovButton.locate(
-        windowWidth / 2 + 10,
-        Math.round(((windowHeight / 2) * 0.88) / 2) - fovButton.height / 2
+        renderthread.window.innerWidth / 2 + 10,
+        Math.round(((renderthread.window.innerHeight / 2) * 0.88) / 2) -
+          fovButton.height / 2
       );
       this.UIElements.push(fovButton);
     } else if (this.currentScreen === "play>load") {
@@ -239,7 +262,7 @@ class UIManager {
       backButton.textSize = 20;
       backButton.cornerRadius = 0;
       backButton.image = buttonTexture;
-      backButton.width = windowWidth / 4;
+      backButton.width = renderthread.window.innerWidth / 4;
       backButton.height = 25;
       backButton.text = "Back";
       backButton.stroke = "rgba(0,0,0,0)";
@@ -257,8 +280,9 @@ class UIManager {
         backButton.stroke = "rgba(0,0,0,0)";
       };
       backButton.locate(
-        windowWidth / 2 - backButton.width / 2,
-        Math.round(((windowHeight / 2) * 3.6) / 2) - backButton.height / 2
+        renderthread.window.innerWidth / 2 - backButton.width / 2,
+        Math.round(((renderthread.window.innerHeight / 2) * 3.6) / 2) -
+          backButton.height / 2
       );
       this.UIElements.push(backButton);
     } else if (this.currentScreen === "play>game") {
@@ -270,86 +294,91 @@ class UIManager {
     }
   }
   render() {
+    _frameCount += 1;
+    //console.log([renderthread.window.innerWidth, renderthread.window.innerHeight,_mouseX,_mouseY,renderthread.frameCount_]);
     this.UIElements.forEach((element) => element.draw());
+    GAMESTATE = this.currentScreen;
     if (this.currentScreen === "home") {
-      textSize(windowHeight / 8);
+      textSize(renderthread.window.innerHeight / 8);
       fill("#000000");
       text(
         "WebCraft",
-        windowWidth / 2 -
+        renderthread.window.innerWidth / 2 -
           textWidth("WebCraf|") / 2 +
-          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
-        (windowHeight / 2) * 0.6 +
-          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+          Math.round(noise(_frameCount / 10, _mouseX / 100) * 10),
+        (renderthread.window.innerHeight / 2) * 0.6 +
+          Math.round(noise(_mouseY / 100, _frameCount / 10) * 10)
       );
       push();
       translate(
-        windowWidth / 2 +
+        renderthread.window.innerWidth / 2 +
           textWidth("WebCraf|") / 2 +
-          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
-        (windowHeight / 2) * 0.68 +
-          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+          Math.round(noise(_frameCount / 10, _mouseX / 100) * 10),
+        (renderthread.window.innerHeight / 2) * 0.68 +
+          Math.round(noise(_mouseY / 100, _frameCount / 10) * 10)
       );
       rotate(
         -0.785398 -
           Math.round(
-            noise(frameCount_ / 10, _mouseX / 100),
+            noise(_frameCount / 10, _mouseX / 100),
             noise(_mouseX / 15, _mouseY / 15)
           ) /
             100
       );
       textSize(
-        windowWidth / 200 +
+        renderthread.window.innerWidth / 200 +
           (285 / allRandomSubtitles[choice].length) * 0.5 +
-          sin(frameCount_ / 10 + 285 / windowWidth) * 6 +
+          Math.sin(_frameCount / 10 + 285 / renderthread.window.innerWidth) *
+            6 +
           6
       );
       fill("#d1b900");
       text(allRandomSubtitles[choice], 0, 0);
       pop();
 
-      textSize(windowHeight / 32);
+      textSize(renderthread.window.innerHeight / 32);
       fill("#ffffff");
       text(
         "Made by our contributors on github.",
-        windowWidth -
+        renderthread.window.innerWidth -
           textWidth("Made by our contributors on github.__") +
-          Math.round(noise(frameCount / 25, _mouseY / 150) * 20),
-        windowHeight -
+          Math.round(noise(_frameCount / 25, _mouseY / 150) * 20),
+        renderthread.window.innerHeight -
           textWidth("Made by our contributors on github.__") / 15 +
-          Math.round(noise(_mouseX / 150, frameCount / 25) * 20)
+          Math.round(noise(_mouseX / 150, _frameCount / 25) * 20)
       );
     } else if (this.currentScreen === "play>load") {
-      textSize(windowHeight / 8);
+      textSize(renderthread.window.innerHeight / 8);
       fill("#000000");
       text(
         "WebCraft",
-        windowWidth / 2 -
+        renderthread.window.innerWidth / 2 -
           textWidth("WebCraf|") / 2 +
-          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
-        (windowHeight / 2) * 0.6 +
-          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+          Math.round(noise(_frameCount / 10, _mouseX / 100) * 10),
+        (renderthread.window.innerHeight / 2) * 0.6 +
+          Math.round(noise(_mouseY / 100, _frameCount / 10) * 10)
       );
       push();
       translate(
-        windowWidth / 2 +
+        renderthread.window.innerWidth / 2 +
           textWidth("Loading...") / 2 +
-          Math.round(noise(frameCount / 10, _mouseX / 100) * 10),
-        (windowHeight / 2) * 0.68 +
-          Math.round(noise(_mouseY / 100, frameCount / 10) * 10)
+          Math.round(noise(_frameCount / 10, _mouseX / 100) * 10),
+        (renderthread.window.innerHeight / 2) * 0.68 +
+          Math.round(noise(_mouseY / 100, _frameCount / 10) * 10)
       );
       rotate(
         -0.785398 -
           Math.round(
-            noise(frameCount_ / 10, _mouseX / 100),
+            noise(_frameCount / 10, _mouseX / 100),
             noise(_mouseX / 15, _mouseY / 15)
           ) /
             100
       );
       textSize(
-        windowWidth / 200 +
+        renderthread.window.innerWidth / 200 +
           (285 / "Loading...".length) * 0.5 +
-          sin(frameCount_ / 10 + 285 / windowWidth) * 6 +
+          Math.sin(_frameCount / 10 + 285 / renderthread.window.innerWidth) *
+            6 +
           6
       );
       fill("#d1b900");

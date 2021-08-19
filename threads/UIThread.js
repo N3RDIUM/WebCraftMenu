@@ -2,7 +2,7 @@
 let UI_STARTLOGGEDONCE = false;
 
 console.log("[Threading] UI Thread Started");
-let UI_, initialised, defaultFont, defaultUIImages, buttonTexture, _mouseX, _mouseY;
+let UI_, initialised, defaultFont, buttonTexture;
 
 // setup function, called while the page loads
 function setup() {
@@ -10,12 +10,9 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   canvas.position(0, 0);
   canvas.style("z-index", "2");
-  UI_ = new UIManager();
   defaultFont = loadFont("./assets/RetroFont.otf");
   buttonTexture = loadImage("./assets/textures/gui/options_background.png");
   UI_.getElements();
-  // log the UITexturesList variables
-  //console.log(UITexturesList);
   clear();
   initialised = true;
 }
@@ -24,11 +21,7 @@ function setup() {
 function windowResized() {
   console.log("[UIThread] window resized");
   resizeCanvas(windowWidth, windowHeight);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  UI_.windowResized()
   UI_.getElements();
   UI_.render();
   clear();
@@ -43,7 +36,5 @@ function draw() {
   }
   textFont(defaultFont);
   UI_.render();
-  _mouseX = pmouseX;
-  _mouseY = pmouseY;
   //image(buttonTexture, 0, 0);
 }
